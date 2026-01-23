@@ -1,0 +1,7 @@
+.img {
+  background-image: url("https://www.nationaldentalcare.in/wp-content/uploads/2022/06/Teeth-Cleaning-Treatment-scaled-1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
