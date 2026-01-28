@@ -256,7 +256,7 @@ if (state.phone.length !== 10) {
     alert(err.response?.data?.message || "Error");
   }
 };
-
+// https://loquacious-queijadas-0fcf66.netlify.app/book
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
