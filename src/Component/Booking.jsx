@@ -269,6 +269,7 @@ if (state.phone.length !== 10) {
           <input
             placeholder="Name"
             value={state.username}
+            name="username"
             onChange={(e) =>
               setState({ ...state, username: e.target.value })
             }
@@ -277,6 +278,7 @@ if (state.phone.length !== 10) {
 
           <input
             placeholder="Email"
+            name="email"
             value={state.email}
             onChange={(e) =>
               setState({ ...state, email: e.target.value })
@@ -286,6 +288,7 @@ if (state.phone.length !== 10) {
 
           <input
             type="number"
+            name="number"
             placeholder="Phone"
             value={state.phone}
             onChange={(e) =>
