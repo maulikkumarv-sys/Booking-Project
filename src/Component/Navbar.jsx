@@ -14,7 +14,7 @@ export default function Navbar() {
         {/* Left menu */}
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
           <li>
-            <Link to="/home" className="hover:text-yellow-400 transition">
+            <Link to="/" className="hover:text-yellow-400 transition">
               Home
             </Link>
           </li>
