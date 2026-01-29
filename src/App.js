@@ -1,5 +1,5 @@
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes,Route} from 'react-router-dom';
 import './App.css';
 import Navbar from './Component/Navbar';
 import Booking from './Component/Booking';
@@ -10,19 +10,15 @@ import Login from './Component/Login';
 function App() {
   return (
     <div className="App">
-      <Navbar />
-
+      <Navbar/>
+        
 
       <Routes>
-
-        <Route path='/' element={<Home />} />
-        {/* <Route path='/signup' element={<Signup/>}/>
+        
+       <Route path='/' element={<Home/>}/>
+       <Route path='/signup' element={<Signup/>}/>
        <Route path='/login' element={<Login/>}/>
-       <Route path='/booking' element={<Booking/>}/> */}
-        <Route
-          path="/booking"
-          element={isLoggedIn ? <Booking /> : <Navigate to="/signup" />}
-        />
+       <Route path='/booking' element={<Booking/>}/>
 
       </Routes>
     </div>
