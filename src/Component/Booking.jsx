@@ -202,7 +202,7 @@ export default function Booking() {
   const fetch = async () => {
     try {
       const res = await axios.get(
-        `https://booking-project-backend-4.onrender.com/booking/get`
+        `https://booking-project-backend-1.onrender.com/booking/get`
         // 'http://localhost:8002/booking/get'
       );
       setData(res.data);
@@ -244,7 +244,7 @@ if (state.phone.length !== 10) {
   try {
     await axios.post(
       
-      "https://booking-project-backend-4.onrender.com/booking/add", state
+      "https://booking-project-backend-1.onrender.com/booking/add", state
       // "http://localhost:8002/booking/add",state
     
     );
