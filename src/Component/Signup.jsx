@@ -81,7 +81,11 @@ export default function Signup() {
 
     try {
 
-       axios.post("https://booking-project-backend-1.onrender.com/user/signup", state);
+       axios.post(
+        "https://booking-project-backend-2.onrender.com/user/signup", state
+        // "http://localhost:8002/user/signup",state
+      
+      );
 
       alert("Signup successful");
 
