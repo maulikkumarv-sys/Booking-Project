@@ -1,19 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../CSS/Home.css";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Home() {
+    const [doctor, setDoctor] = useState([])
+
+    useEffect(() => {
+        axios
+            .get("https://booking-project-backend-2.onrender.com/doctor/get")
+            .then(res =>
+                setDoctor(res.data))
+
+            .catch(err => console.log(err));
+    }, [])
+
+
     return (
         <>
-            <div className="w-full">
-                <div className="img flex items-center justify-end px-10 md:px-20">
+            <div className="w-full ">
+                <div className="img flex items-center justify-end px-10 md:px-20 ">
                     <div className="text-right max-w-xl">
-                        <h1 className="text-white font-bold leading-tight
+                        <h1 className="font-serif text-white font-bold leading-tight
                          text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
                             Smiling With <br /> Healthy Teeth
                         </h1>
 
                         <p className="mt-6 text-white
-                        text-base sm:text-lg md:text-xl">
+                        text-base sm:text-lg md:text-xl font-serif">
                             We have the specialist, <br />
                             the expertise & the equipment to help
                         </p>
@@ -29,52 +43,98 @@ export default function Home() {
 
                 <div className="md:col-span-4 bg-gray-100 p-6 md:p-10 rounded-lg">
                     <p className="text-lg sm:text-xl mt-12 font-serif">
-                    We have the specialists, the expertise & <br /> the equipment to help. We have fully <br /> integrated technology service.
-                    
+                        We have the specialists, the expertise & <br /> the equipment to help. We have fully <br /> integrated technology service.
+
                     </p></div>
             </div>
 
+                              <p className="mt-10 text-3xl font-serif">Our Professonal Team  <br />  
+                               _________
+                              
+                              </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-4 md:px-10   ">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10 px-4">
 
-                        <div className="div  md:grid-col-3 sm:grid-col-6 bg-white ">
-                             <p className=" text-2xl sm:text-3xl lg:text-4xl p-6  font-serif"><span className="lg:text-4xl xl:text-5xl">35 +</span>  Certified dentists <br />
-                                 <span className="text-lg"> Skilled dental professionals at service</span>
-                             </p> <hr /> 
-                             <p className="text-2xl sm:text-3xl lg:text-4xl  p-6  font-serif"><span className="lg:text-4xl xl:text-5xl">67 +</span> Treated patients <br />
-                                 <span className="text-lg"> Give excellence in orthodontic dentistry</span>
-                             </p> <hr /> 
-                             <p className="text-2xl sm:text-3xl lg:text-4xl  p-6 font-serif"><span className="lg:text-4xl xl:text-5xl">10 + +</span> Organized chairty<br />
-                                 <span className="text-lg"> Dedicated development on global scale</span>
-                             </p> <hr /> 
-                             <p className="text-2xl sm:text-3xl lg:text-4xl  p-6  font-serif"><span className="lg:text-4xl xl:text-5xl">25 +</span> Overseas clinics <br />
-                                 <span className="text-lg"> Healthcare located over many countries</span>
-                             </p> <hr /> 
+                                
 
-
-
-                        </div>
-                        <div className="md:grid-col-3 mt-1 bg-gray-100 ml-6">
-                            <p className="text-2xl lg:text-5xl sm:text-3xl">We creating bright <br /> beautiful smiles happen</p> <br />
-                            <p className="text-base mt-4 leading-relaxed">Expanding group of dental practices across the World. With the skills <br /> and knowledge we have gathered over many years of working privately <br />and within the ABC, we ensure your care remains at the heart of <br /> everything we do and make your beautiful smile.</p>
-
-                            <img className="mx-10 rounded-lg mt-5 w-full h-auto object-cover" src="https://www.themetechmount.com/medisat/dm3/wp-content/uploads/sites/3/2023/08/single-img-02.jpg" alt="" />
-                        </div>
-
-                        <div className=" mt-1">
+                {doctor.map((doctor) => (
+                    <div
+                        key={doctor._id}
+                        className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm"
+                    >
+                        <Link to={`/booking/${doctor._id}`} className="flex items-center gap-4">
                             
+                            <p className="text-xl font-serif">
+                                <img src={doctor.image} alt="" />
 
-                            <img className="mx-10 rounded-lg mt-5 w-full h-auto object-cover" src="https://www.themetechmount.com/medisat/dm3/wp-content/uploads/sites/3/2023/08/single-img-03.jpg" alt="" />
-
-                            <p className="text-lg sm:text-xl lg:4xl font-serif mt-10">Skilled dental professionals conduct high-quality <br /> treatments covering all specialities, striving for <br /> excellent patient care.</p>
-                        </div>
-
+                             {doctor.doctorname} <br />
+                                <span className="text-gray-600 text-base">
+                                    {doctor.specialist}
+                                </span>
+                            </p>
+                        </Link>
 
 
                     </div>
 
+                ))}
 
-             
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-4 md:px-10   ">
+
+                <div className="div  md:grid-col-3 sm:grid-col-6 bg-white ">
+                    <p className=" text-2xl sm:text-3xl lg:text-4xl p-6  font-serif"><span className="lg:text-4xl xl:text-5xl">35 +</span>  Certified dentists <br />
+                        <span className="text-lg"> Skilled dental professionals at service</span>
+                    </p> <hr />
+                    <p className="text-2xl sm:text-3xl lg:text-4xl  p-6  font-serif"><span className="lg:text-4xl xl:text-5xl">67 +</span> Treated patients <br />
+                        <span className="text-lg"> Give excellence in orthodontic dentistry</span>
+                    </p> <hr />
+                    <p className="text-2xl sm:text-3xl lg:text-4xl  p-6 font-serif"><span className="lg:text-4xl xl:text-5xl">10 + +</span> Organized chairty<br />
+                        <span className="text-lg"> Dedicated development on global scale</span>
+                    </p> <hr />
+                    <p className="text-2xl sm:text-3xl lg:text-4xl  p-6  font-serif"><span className="lg:text-4xl xl:text-5xl">25 +</span> Overseas clinics <br />
+                        <span className="text-lg"> Healthcare located over many countries</span>
+                    </p> <hr />
+
+
+
+                </div>
+                <div className="md:grid-col-3 mt-1 bg-gray-100 ml-6">
+                    <p className="text-2xl lg:text-5xl sm:text-3xl font-serif">We creating bright <br /> beautiful smiles happen</p> <br />
+                    <p className="text-base mt-4 leading-relaxed font-serif">Expanding group of dental practices across the World. With the skills <br /> and knowledge we have gathered over many years of working privately <br />and within the ABC, we ensure your care remains at the heart of <br /> everything we do and make your beautiful smile.</p>
+
+                    <img className="mx-10 rounded-lg mt-5 w-full h-auto object-cover" src="https://www.themetechmount.com/medisat/dm3/wp-content/uploads/sites/3/2023/08/single-img-02.jpg" alt="" />
+                </div>
+
+                <div className=" mt-1">
+
+
+                    <img className="mx-10 rounded-lg mt-5 w-full h-auto object-cover" src="https://www.themetechmount.com/medisat/dm3/wp-content/uploads/sites/3/2023/08/single-img-03.jpg" alt="" />
+
+                    <p className="text-lg sm:text-xl lg:4xl font-serif mt-10">Skilled dental professionals conduct high-quality <br /> treatments covering all specialities, striving for <br /> excellent patient care.</p>
+                </div>
+
+
+
+            </div>
+
+
+
 
 
         </>

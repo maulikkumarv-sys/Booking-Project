@@ -1,7 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <nav className="bg-black text-white px-6 py-4">
       <ul
@@ -11,42 +19,36 @@ export default function Navbar() {
           font-medium
         "
       >
-        {/* Left menu */}
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
           <li>
-            <Link to="/" className="hover:text-yellow-400 transition">
+            <Link to="/home" className="hover:text-yellow-400 transition">
               Home
             </Link>
           </li>
 
-          {/* <li>
-            <Link to="/about" className="hover:text-yellow-400 transition">
-              About
-            </Link>
-          </li> */}
+          {!token && (
+            <li>
+              <Link to="/signup" className="hover:text-yellow-400 transition">
+                Sign Up
+              </Link>
+            </li>
+          )}
+        </div>
 
-          <li>
-            <Link to="/signup" className="hover:text-yellow-400 transition">
-              Sign Up
-            </Link>
-          </li>
-
-          {/* <li>
+        <div>
+          {token ? (
+            <button
+              onClick={handleLogout}
+              className="hover:text-red-400 transition"
+            >
+              Logout
+            </button>
+          ) : (
             <Link to="/login" className="hover:text-yellow-400 transition">
               Login
             </Link>
-          </li> */}
+          )}
         </div>
-
-        {/* Right button */}
-        <li>
-          <Link
-            to="/booking"
-            className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-400 transition"
-          >
-            BOOK NOW
-          </Link>
-        </li>
       </ul>
     </nav>
   );

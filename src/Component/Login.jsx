@@ -1,14 +1,12 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [state, setState] = useState({
     email: "",
     password: ""
-  })
-
-
-
+  });
 
   function userlogin() {
     if (!state.email || !state.password) {
@@ -24,30 +22,32 @@ export default function Login() {
     }
 
     axios
-      .post(
-        
-        "https://booking-project-backend-2.onrender.com/user/login",
-        // "http://localhost:8002/user/login",
-        
-        {
+      .post("https://booking-project-backend-2.onrender.com/user/login", {
         email: state.email,
-        password: state.password,
-        
+        password: state.password
       })
       .then((res) => {
+          console.log("LOGIN RESPONSE", res.data);
         alert("Login successful");
-        console.log(res.data.token);
-        setState({
-          email:"",
-          password:""
-        })
 
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("role", res.data.role);
+
+        if (res.data.role === "admin") {
+          window.location.href = "/dashboard";
+        } else {
+          window.location.href = "/home";
+        }
+
+        setState({
+          email: "",
+          password: ""
+        });
       })
       .catch((err) => {
         alert(err.response?.data?.message || "Login failed");
       });
   }
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -85,11 +85,16 @@ export default function Login() {
           >
             Login
           </button>
+         
+           <p className="text-center text-sm text-gray-600 mt-4">
+                     If you not register Yet?{" "}
+                     <Link to={"/signup"}><span className="text-yellow-500 cursor-pointer hover:underline">
+                       Signup
+                     </span></Link> </p>
+
         </div>
-
-
       </div>
     </div>
   );
-
 }
+

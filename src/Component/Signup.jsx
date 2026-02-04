@@ -1,59 +1,4 @@
 
-// import axios from 'axios'
-// import React, { useEffect, useState } from 'react'
-
-// export default function Signup() {
-//     const[state,setState]=useState({
-//         username:"",
-//         email:"",
-//         password:""
-//     })
-    
-
-//       useEffect(()=>{
-//         usersignup()
-//       },[])
-
-//            function usersignup(){
-//             const res=axios.post("http://localhost:8002/user/signup",state)
-//             .then((res)=>{
-//                 setState({
-//                     username:"",
-//                     email:"",
-//                     password:""
-//                 })
-//             }).catch((error)=>{
-//                 console.log(error)
-//             })
-//            }
-//   return (
-//     <>
-    
-//     <div>
-//       <input type="text" placeholder='username' value={state.username} onChange={(e)=>setState({
-//         ...state,
-//         username:e.target.value
-//       })} />
-
-//       <input type="text" placeholder='email' value={state.email} onChange={(e)=>setState({
-//         ...state,
-//         email:e.target.value
-//       })} />
-
-//       <input type="text" placeholder='password' value={state.password} onChange={(e)=>setState({
-//         ...state,
-//         password:e.target.value
-//       })} />
-//       <button type='submit'>submit</button>
-
-        
-//     </div>
-    
-    
-//     </>
-//   )
-// }
-
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -64,40 +9,39 @@ export default function Signup() {
     email: "",
     password: "",
   });
+  function usersignup() {
+  if (!state.username || !state.email || !state.password) {
+    return alert("All fields are required");
+  }
 
+  if (!state.email.includes("@")) {
+    return alert("Enter a valid email");
+  }
 
-  function usersignup () {
-    if (!state.username || !state.email || !state.password) {
-      return alert("All fields are required");
-    }
+  if (state.password.length < 6) {
+    return alert("Password must be at least 6 characters");
+  }
 
-    if (!state.email.includes("@")) {
-      return alert("Enter a valid email");
-    }
-
-    if (state.password.length < 6) {
-      return alert("Password must be at least 6 characters");
-    }
-
-    try {
-
-       axios.post(
-        "https://booking-project-backend-2.onrender.com/user/signup", state
-        // "http://localhost:8002/user/signup",state
-      
-      );
+  axios
+    .post(
+      "https://booking-project-backend-2.onrender.com/user/signup",
+      state
+    )
+    .then((res) => {
+      console.log("SIGNUP RESPONSE", res.data);
 
       alert("Signup successful");
 
-      setState({
-        username: "",
-        email: "",
-        password: "",
-      });
-    } catch (err) {
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", "user"); 
+
+      window.location.href = "/home";
+    })
+    .catch((err) => {
       alert(err.response?.data?.message || "Signup failed");
-    } 
-  };
+    });
+}
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
