@@ -49,7 +49,7 @@ export default function Home() {
             </div>
 
                               <p className="mt-10 text-3xl font-serif">Our Professonal Team  <br />  
-                               _________
+                               __________
                               
                               </p>
 
