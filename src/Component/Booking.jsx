@@ -30,7 +30,7 @@ export default function Booking() {
   const {id : doctorId}=useParams()
 
   const [data, setData] = useState([]);
-  const today = new Date().toLocaleDateString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     fetch();
