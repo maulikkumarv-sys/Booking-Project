@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   const handleLogout = () => {
     localStorage.clear();
@@ -12,13 +13,8 @@ export default function Navbar() {
 
   return (
     <nav className="bg-black text-white px-6 py-4">
-      <ul
-        className="
-          flex flex-col items-center gap-4
-          md:flex-row md:justify-between md:gap-6
-          font-medium
-        "
-      >
+      <ul className="flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-6 font-medium">
+        
         <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
           <li>
             <Link to="/home" className="hover:text-yellow-400 transition">
@@ -30,6 +26,17 @@ export default function Navbar() {
             <li>
               <Link to="/signup" className="hover:text-yellow-400 transition">
                 Sign Up
+              </Link>
+            </li>
+          )}
+
+          {token && role === "admin" && (
+            <li>
+              <Link
+                to="/dashboard"
+                className="hover:text-green-400 transition"
+              >
+                Dashboard
               </Link>
             </li>
           )}
